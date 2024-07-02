@@ -17,10 +17,14 @@
     <div class="col-lg-8 col-md-10 col-12 p-lg-5 p-md-4 p-3 mx-auto">
         <h1 class="text-center">Welcome to Whatsapp</h1>
         <div class="form-container col-lg-8 mx-auto">
-            <p class="title">Login</p>
+            <p class="title">Sign Up</p>
             <form class="form">
                 <div class="input-group">
-                    <label for="username">Username</label>
+                    <label for="fullname">Full Name</label>
+                    <input type="text" name="fullname" id="fullname" placeholder="">
+                </div>
+                <div class="input-group">
+                    <label for="username">Email</label>
                     <input type="text" name="username" id="username" placeholder="">
                 </div>
                 <div class="input-group">
@@ -30,7 +34,7 @@
                         <a rel="noopener noreferrer" href="#">Forgot Password ?</a>
                     </div>
                 </div>
-                <button class="sign">Sign in</button>
+                <button class="sign" id="signUp">Sign up</button>
             </form>
             <div class="social-message">
                 <div class="line"></div>
@@ -60,13 +64,14 @@
                     </svg>
                 </button>
             </div>
-            <p class="signup">Don't have an account?
-                <a rel="noopener noreferrer" href="signup.html" class="">Sign up</a>
+            <p class="signup">Already have an account?
+                <a rel="noopener noreferrer" href="index.html" class="">Sign in</a>
             </p>
         </div>
     </div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDpCl4oXqX8MsBmYX6fJ5-1oNf6zPc_vzY",
@@ -79,6 +84,11 @@
 
 
         const app = initializeApp(firebaseConfig);
+
+        const upSign = document.getElementById('signUp')
+        upSign.addEventListener('click',()=>{
+            alert("Hi")
+        })
     </script>
 </body>
 
