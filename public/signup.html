@@ -24,8 +24,8 @@
                     <input type="text" name="fullname" id="fullname" placeholder="">
                 </div>
                 <div class="input-group">
-                    <label for="username">Email</label>
-                    <input type="text" name="username" id="username" placeholder="">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="">
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
@@ -34,7 +34,7 @@
                         <a rel="noopener noreferrer" href="#">Forgot Password ?</a>
                     </div>
                 </div>
-                <button class="sign" id="signUp">Sign up</button>
+                <button type="button" class="sign" id="signUp">Sign up</button>
             </form>
             <div class="social-message">
                 <div class="line"></div>
@@ -71,7 +71,7 @@
     </div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDpCl4oXqX8MsBmYX6fJ5-1oNf6zPc_vzY",
@@ -84,10 +84,32 @@
 
 
         const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app)
 
         const upSign = document.getElementById('signUp')
-        upSign.addEventListener('click',()=>{
-            alert("Hi")
+
+        const fullname = document.getElementById('fullname').value
+        const email = document.getElementById('email').value
+        const password = document.getElementById('password').value
+
+        upSign.addEventListener('click', () => {
+            if (fullname == '' || email == '' || password == '' ) {
+                alert("Fill in something")
+            } else {
+                let userInfo = { fullname, email, password }
+                localStorage.setItem('userDetail', JSON.stringify(userInfo))
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        // Signed up 
+                        const user = userCredential.user;
+                        console.log(user);
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        console.log(errorCode, errorMessage);
+                    });
+            }
         })
     </script>
 </body>
